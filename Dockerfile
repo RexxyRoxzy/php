@@ -1,8 +1,12 @@
-# Utilise l'image officielle PHP avec Apache
-FROM php:8.2-apache
+FROM php:8.2-cli
 
-# Copie tous les fichiers du projet dans le dossier racine d'Apache
-COPY . /var/www/html/
+WORKDIR /app
+COPY . /app
 
-# Expose le port 80 (HTTP)
-EXPOSE 80
+# Copie le script de démarrage et rends-le exécutable
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
+
+EXPOSE 8080
+
+CMD ["/start.sh"]
